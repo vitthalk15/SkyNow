@@ -11,6 +11,9 @@ const WeatherSearch = ({ onSearch, onLocationSearch, loading }) => {
   const searchRef = useRef(null)
   const suggestionsRef = useRef(null)
 
+  const API_BASE = (import.meta?.env?.VITE_API_BASE_URL && import.meta.env.VITE_API_BASE_URL.trim())
+    || (process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api' : '/api')
+
   // Debounced search for suggestions
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -41,10 +44,7 @@ const WeatherSearch = ({ onSearch, onLocationSearch, loading }) => {
   const fetchSuggestions = async (query) => {
     setSuggestionsLoading(true)
     try {
-      // Use direct URL for development
-      const apiUrl = process.env.NODE_ENV === 'development' 
-        ? `https://sky-now-teal.vercel.app/api/weather/suggestions?q=${encodeURIComponent(query)}`
-        : `/api/weather/suggestions?q=${encodeURIComponent(query)}`
+      const apiUrl = `${API_BASE}/weather/suggestions?q=${encodeURIComponent(query)}`
       
       const response = await fetch(apiUrl)
       const data = await response.json()

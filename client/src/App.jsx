@@ -12,6 +12,9 @@ function App() {
   const [error, setError] = useState(null)
   const [searchHistory, setSearchHistory] = useState([])
 
+  const API_BASE = (import.meta?.env?.VITE_API_BASE_URL && import.meta.env.VITE_API_BASE_URL.trim())
+    || (process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api' : '/api')
+
   // Load search history from localStorage on component mount
   useEffect(() => {
     const savedHistory = localStorage.getItem('weatherSearchHistory')
@@ -30,11 +33,7 @@ function App() {
     setError(null)
     
     try {
-      // Try proxy first, fallback to direct URL
-      const apiUrl = process.env.NODE_ENV === 'development' 
-        ? `https://sky-now-teal.vercel.app/api/weather?city=${encodeURIComponent(city)}`
-        : `/api/weather?city=${encodeURIComponent(city)}`
-      
+      const apiUrl = `${API_BASE}/weather?city=${encodeURIComponent(city)}`
       
       const response = await fetch(apiUrl)
       
@@ -74,10 +73,7 @@ function App() {
     setError(null)
     
     try {
-      const apiUrl = process.env.NODE_ENV === 'development' 
-        ? `https://sky-now-teal.vercel.app/api/weather/coordinates?latitude=${latitude}&longitude=${longitude}`
-        : `/api/weather/coordinates?latitude=${latitude}&longitude=${longitude}`
-      
+      const apiUrl = `${API_BASE}/weather/coordinates?latitude=${latitude}&longitude=${longitude}`
       
       const response = await fetch(apiUrl)
       
