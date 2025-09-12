@@ -32,7 +32,7 @@ function App() {
     try {
       // Try proxy first, fallback to direct URL
       const apiUrl = process.env.NODE_ENV === 'development' 
-        ? `http://localhost:5000/api/weather?city=${encodeURIComponent(city)}`
+        ? `https://sky-now-teal.vercel.app/api/weather?city=${encodeURIComponent(city)}`
         : `/api/weather?city=${encodeURIComponent(city)}`
       
       
@@ -75,7 +75,7 @@ function App() {
     
     try {
       const apiUrl = process.env.NODE_ENV === 'development' 
-        ? `http://localhost:5000/api/weather/coordinates?latitude=${latitude}&longitude=${longitude}`
+        ? `https://sky-now-teal.vercel.app/api/weather/coordinates?latitude=${latitude}&longitude=${longitude}`
         : `/api/weather/coordinates?latitude=${latitude}&longitude=${longitude}`
       
       

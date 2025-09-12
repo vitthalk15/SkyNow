@@ -43,7 +43,7 @@ const WeatherSearch = ({ onSearch, onLocationSearch, loading }) => {
     try {
       // Use direct URL for development
       const apiUrl = process.env.NODE_ENV === 'development' 
-        ? `http://localhost:5000/api/weather/suggestions?q=${encodeURIComponent(query)}`
+        ? `https://sky-now-teal.vercel.app/api/weather/suggestions?q=${encodeURIComponent(query)}`
         : `/api/weather/suggestions?q=${encodeURIComponent(query)}`
       
       const response = await fetch(apiUrl)
